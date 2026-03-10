@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سهرة رمضان · أسئلة دينية وتفاعل</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Tajawal', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top right, #1e3c46, #0a2b32);
+      min-height: 100vh;
+      padding: 1rem;
+      color: #fff8e7;
+    }
+
+    .ramadan-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: rgba(10, 35, 40, 0.5);
+      backdrop-filter: blur(10px);
+      border-radius: 80px 80px 40px 40px;
+      box-shadow: 0 30px 50px rgba(0,0,0,0.7), 0 0 0 6px #f5c542 inset, 0 0 30px #ffd966;
+      padding: 2.5rem 2rem;
+      border: 2px solid #ffd966;
+    }
+
+    /* رأس الصفحة بهلال وفوانيس - ألوان ذهبية دافئة */
+    .ramadan-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(145deg, #2a5f6e, #1c4450);
+      border-radius: 150px 150px 60px 60px;
+      padding: 1.2rem 2.5rem;
+      margin-bottom: 2.5rem;
+      border: 4px solid #fec85e;
+      box-shadow: 0 20px 30px #d49b3f, 0 0 25px #ffeeaa inset;
+      flex-wrap: wrap;
+    }
+
+    .crescent-row {
+      display: flex;
+      gap: 15px;
+      font-size: 3.8rem;
+      color: #ffe684;
+      text-shadow: 0 0 30px #ffb347, 0 0 60px #fff3bf;
+    }
+
+    .header-title {
+      font-size: 3rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #fbeba4, #ffcf5c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 4px 4px 0 #8b5a2b, 2px 2px 15px #ffd966;
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .header-title i {
+      font-size: 4rem;
+      color: #f9cd6c;
+      -webkit-text-fill-color: initial;
+      text-shadow: 5px 5px 0 #7a431d, 0 0 20px gold;
+    }
+
+    /* شريط الجاباتر - ألوان زاهية */
+    .chapters-bar {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .chapter-btn {
+      background: linear-gradient(to bottom, #2b7285, #124551);
+      border: 4px solid #ffce6b;
+      color: #ffefd1;
+      font-size: 2.2rem;
+      font-weight: bold;
+      padding: 1rem 3rem;
+      border-radius: 70px;
+      cursor: pointer;
+      box-shadow: 0 12px 0 #7f582b, 0 0 20px #ffd58c;
+      transition: 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      text-shadow: 2px 2px 0 #4d3b1f;
+    }
+
+    .chapter-btn i { font-size: 2.6rem; color: #fcdb8b; }
+    .chapter-btn.active {
+      background: linear-gradient(to bottom, #f0bc60, #dc9730);
+      color: #142f38;
+      box-shadow: 0 6px 0 #7f582b, 0 0 40px #ffeeaa;
+      transform: translateY(6px);
+    }
+
+    /* منطقة السؤال */
+    .quiz-area {
+      background: rgba(20, 60, 70, 0.8);
+      backdrop-filter: blur(5px);
+      border-radius: 90px;
+      padding: 3rem;
+      margin-bottom: 2.5rem;
+      border: 5px solid #fecd70;
+      box-shadow: inset 0 0 40px #00000099, 0 25px 0 #8b6633, 0 0 50px #ffb347;
+    }
+
+    .question-counter {
+      font-size: 2.2rem;
+      background: #2e7588;
+      display: inline-block;
+      padding: 1rem 3rem;
+      border-radius: 60px;
+      margin-bottom: 2.5rem;
+      border: 3px solid #ffe394;
+      box-shadow: 0 5px 0 #4d3b1f;
+    }
+
+    .question-text {
+      font-size: 2.6rem;
+      font-weight: 700;
+      background: rgba(0, 30, 40, 0.7);
+      padding: 2.5rem;
+      border-radius: 70px;
+      margin-bottom: 3rem;
+      border-right: 15px solid #fdc35e;
+      box-shadow: 0 0 30px #ffbe5c inset;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px,1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .option-item {
+      background: linear-gradient(145deg, #2a6d7e, #124f5e);
+      border: 5px solid #fabc5a;
+      border-radius: 80px;
+      padding: 1.5rem 2.5rem;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 8px 0 #7f582b, 0 0 15px #ffd58c;
+      color: #fff7e0;
+    }
+    .option-item:hover { 
+      background: #31859b; 
+      border-color: #ffe284; 
+      transform: scale(1.02);
+      box-shadow: 0 8px 0 #7f582b, 0 0 30px #ffe284;
+    }
+    .option-item.disabled { 
+      opacity: 0.7; 
+      pointer-events: none; 
+      filter: grayscale(0.5);
+    }
+    .option-item.selected {
+      background: #d6a042;
+      border-color: #ffffff;
+      box-shadow: 0 0 30px gold;
+    }
+
+    .feedback-message {
+      font-size: 2.4rem;
+      padding: 2rem;
+      border-radius: 70px;
+      margin: 2rem 0;
+      text-align: center;
+      font-weight: bold;
+      box-shadow: 0 10px 0 #4d3b1f;
+    }
+
+    .correct-feedback { 
+      background: #2a7a48; 
+      border: 5px solid #b0ff9b; 
+      color: #f5ffe0;
+      text-shadow: 2px 2px 0 #1b4f2a;
+    }
+    .wrong-feedback { 
+      background: #a14242; 
+      border: 5px solid #ffb6b6; 
+      color: #fff0e0;
+      text-shadow: 2px 2px 0 #632d2d;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 2.5rem;
+      justify-content: center;
+    }
+    .nav-btn {
+      background: linear-gradient(to bottom, #f7cb70, #e09d3a);
+      border: none;
+      font-size: 2.5rem;
+      padding: 1.2rem 5rem;
+      border-radius: 70px;
+      font-weight: bold;
+      color: #0f3b44;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 12px 0 #8b5827, 0 0 30px #ffc857;
+      transition: 0.1s;
+    }
+    .nav-btn:active { transform: translateY(6px); box-shadow: 0 6px 0 #8b5827; }
+    .nav-btn:disabled { opacity: 0.5; transform: none; box-shadow: 0 12px 0 #8b5827; pointer-events: none; }
+
+    /* نتيجة الفصل */
+    .result-panel {
+      background: #379657;
+      border-radius: 80px;
+      padding: 3rem;
+      text-align: center;
+      margin: 2.5rem 0;
+      border: 8px solid #ffea91;
+      font-size: 3.5rem;
+      font-weight: bold;
+      display: none;
+      box-shadow: 0 20px 0 #3f6b2f, 0 0 60px #c3ff8d;
+    }
+
+    /* البطاقات المعلوماتية */
+    .info-showcase {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin: 60px 0;
+      justify-content: center;
+    }
+    .info-card {
+      background: linear-gradient(145deg, #2e7f94, #1c5567);
+      border-radius: 60px;
+      padding: 2.2rem;
+      width: 300px;
+      text-align: center;
+      border: 5px solid #fdc45e;
+      cursor: pointer;
+      box-shadow: 0 15px 0 #614e28, 0 0 30px #ffd966;
+      transition: 0.2s;
+    }
+    .info-card:hover { transform: scale(1.05); background: #3d99b0; }
+    .info-card i { font-size: 5rem; color: #ffe28f; text-shadow: 3px 3px 0 #9b6f2b; }
+    .info-card h3 { font-size: 2.3rem; }
+
+    /* قسم النضافه */
+    .nadafa-section {
+      background: #195f6e;
+      border-radius: 70px;
+      padding: 3rem;
+      margin: 50px 0;
+      border: 6px solid #f0bc60;
+      box-shadow: 0 15px 0 #5b441f, 0 0 50px #ffcf6e;
+    }
+    .nadafa-line {
+      font-size: 2.4rem;
+      color: #ffefc0;
+      margin: 25px 0;
+      cursor: pointer;
+      padding: 1.5rem;
+      border-radius: 60px;
+      transition: 0.2s;
+      border-right: 10px solid #fbc35e;
+      background: rgba(0,0,0,0.2);
+      box-shadow: 0 5px 0 #4d3b1f;
+    }
+    .nadafa-line:hover { background: #2d7f94; padding-right: 4rem; }
+
+    /* المودال (صفحة منفردة) */
+    .modal-overlay {
+      position: fixed;
+      top:0; right:0; left:0; bottom:0;
+      background: #000000f2;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: linear-gradient(145deg, #26635b, #4d3a1f);
+      width: 85%;
+      max-width: 1100px;
+      padding: 4rem;
+      border-radius: 120px;
+      border: 8px solid #ffd889;
+      color: #fff6db;
+      font-size: 2.4rem;
+      line-height: 1.9;
+      position: relative;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 0 100px #ffbb4a;
+    }
+    .close-modal {
+      position: absolute;
+      top: 40px; left: 50px;
+      font-size: 4rem;
+      color: #ffdb8e;
+      cursor: pointer;
+      text-shadow: 3px 3px 0 #614e28;
+    }
+    .modal-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 50px;
+    }
+    .modal-nav button {
+      background: #ebbc64;
+      border: none;
+      font-size: 2.6rem;
+      padding: 1rem 4rem;
+      border-radius: 70px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 8px 0 #8b5827;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 5rem;
+      font-size: 2.2rem;
+      border-top: 6px solid #fecb6b;
+      padding-top: 2.5rem;
+      color: #ffeaad;
+      text-shadow: 2px 2px 0 #5b441f;
+    }
+  </style>
+</head>
+<body>
+<div class="ramadan-wrapper">
+
+  <!-- اللافتة العلوية -->
+  <div class="ramadan-header">
+    <div class="crescent-row">
+      <i class="fas fa-moon"></i><i class="fas fa-moon"></i><i class="fas fa-star-and-crescent"></i>
+    </div>
+    <div class="header-title">
+      <i class="fas fa-lantern"></i> هل صليت على محمد اليوم ؟ <i class="fas fa-lantern"></i>
+    </div>
+    <div class="crescent-row">
+      <i class="fas fa-star-and-crescent"></i><i class="fas fa-moon"></i><i class="fas fa-moon"></i>
+    </div>
+  </div>
+
+  <!-- الجاباتر الأربعة -->
+  <div class="chapters-bar" id="chaptersBar">
+    <div class="chapter-btn active" data-chapter="0"><i class="fas fa-book-open"></i> الجابتر ١ • اختيار من متعدد</div>
+    <div class="chapter-btn" data-chapter="1"><i class="fas fa-mosque"></i> الجابتر ٢ • صح أم خطأ</div>
+    <div class="chapter-btn" data-chapter="2"><i class="fas fa-hands"></i> الجابتر ٣ • أكمل الفراغ</div>
+    <div class="chapter-btn" data-chapter="3"><i class="fas fa-quran"></i> الجابتر ٤ • تفسيري</div>
+  </div>
+
+  <!-- منطقة الأسئلة مع الإجابة الفورية -->
+  <div class="quiz-area" id="quizArea">
+    <div class="question-counter" id="qCounter">السؤال 1 / 30</div>
+    <div class="question-text" id="qText">اختر جابتر لبدء الأسئلة</div>
+    <div class="options-grid" id="optionsContainer"></div>
+    <div class="feedback-message" id="feedbackMsg" style="display: none;"></div>
+    <div class="nav-buttons">
+      <button class="nav-btn" id="nextBtn" disabled>التالي <i class="fas fa-arrow-left"></i></button>
+    </div>
+  </div>
+
+  <!-- نتيجة إتمام الجابتر -->
+  <div class="result-panel" id="resultPanel"></div>
+
+  <!-- بطاقات معلوماتية (رمضان وفوائده) -->
+  <div class="info-showcase" id="infoShowcase">
+    <div class="info-card" data-info="0"><i class="fas fa-apple-alt"></i><h3>فوائد الصوم للجسم</h3></div>
+    <div class="info-card" data-info="1"><i class="fas fa-heart"></i><h3>لماذا نصوم؟</h3></div>
+    <div class="info-card" data-info="2"><i class="fas fa-hand-sparkles"></i><h3>نظافة البدن والقلب</h3></div>
+    <div class="info-card" data-info="3"><i class="fas fa-star"></i><h3>قال أستاذي محمد خضر</h3></div>
+    <div class="info-card" data-info="4"><i class="fas fa-leaf"></i><h3>آيات وأحاديث كثيرة</h3></div>
+  </div>
+
+  <!-- سطور النضافه (كل سطر يفتح صفحة) -->
+  <div class="nadafa-section" id="nadafaSection">
+    <div class="nadafa-line" data-nadafa="0">✦ قال رسول الله ﷺ: "إن الله طيب يحب الطيب نظيف يحب النظافة" ✦</div>
+    <div class="nadafa-line" data-nadafa="1">✦ الأستاذ محمد خضر: "نضيف اليد نضيف القلب" ✦</div>
+    <div class="nadafa-line" data-nadafa="2">✦ الإمام علي (ع): "تطهرُوا فإن الإسلام نظيف" ✦</div>
+    <div class="nadafa-line" data-nadafa="3">✦ سورة البقرة: "كتب عليكم الصيام كما كتب على الذين من قبلكم لعلكم تتقون" ✦</div>
+    <div class="nadafa-line" data-nadafa="4">✦ الإمام الصادق (ع): "من أخلاق الأنبياء التطيب" ✦</div>
+  </div>
+
+  <!-- المودال (الصفحة المنفردة) -->
+  <div class="modal-overlay" id="infoModal">
+    <div class="modal-content" id="modalContent">
+      <i class="fas fa-times-circle close-modal" id="closeModal"></i>
+      <div id="modalBody">معلومات موسعة</div>
+      <div class="modal-nav">
+        <button id="prevModalPage"><i class="fas fa-chevron-right"></i> السابق</button>
+        <button id="nextModalPage">التالي <i class="fas fa-chevron-left"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- التذييل -->
+  <div class="footer">
+    <i class="fas fa-copyright"></i> من تصميم حسام مهند • جميع الحقوق محفوظة 2026 © <br>
+    <span class="small-note" style="font-size:2rem;">اللهم بلغنا رمضان • سبحانك اللهم وبحمدك</span>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // ------------------- إعداد الصوت (web audio مع فتح التفاعل) -------------------
+    let audioContext = null;
+    function initAudio() {
+      if (audioContext) return;
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    function playSound(type) {
+      try {
+        if (!audioContext) initAudio();
+        if (audioContext.state === 'suspended') {
+          audioContext.resume().then(() => playSound(type));
+          return;
+        }
+        const now = audioContext.currentTime;
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        if (type === 'correct') {
+          osc.frequency.value = 1046.5; // دو
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+          osc.start(now);
+          osc.stop(now + 0.3);
+          setTimeout(() => {
+            const osc2 = audioContext.createOscillator();
+            const gain2 = audioContext.createGain();
+            osc2.connect(gain2);
+            gain2.connect(audioContext.destination);
+            osc2.frequency.value = 1318.5; // مي
+            gain2.gain.setValueAtTime(0.25, audioContext.currentTime);
+            gain2.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+            osc2.start();
+            osc2.stop(audioContext.currentTime + 0.2);
+          }, 150);
+        } else if (type === 'wrong') {
+          osc.frequency.value = 349.23; // فا
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+          osc.start(now);
+          osc.stop(now + 0.4);
+        } else if (type === 'finish') {
+          [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
+            setTimeout(() => {
+              const o = audioContext.createOscillator();
+              const g = audioContext.createGain();
+              o.connect(g);
+              g.connect(audioContext.destination);
+              o.frequency.value = freq;
+              g.gain.setValueAtTime(0.2, audioContext.currentTime);
+              g.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
+              o.start();
+              o.stop(audioContext.currentTime + 0.15);
+            }, i * 120);
+          });
+        }
+      } catch (e) { console.warn("audio error", e); }
+    }
+
+    // ------------------- بيانات الأسئلة الجديدة (66 سؤالاً) بعد حذف "عند الشيعة" -------------------
+    const questions = [];
+
+    // دالة لتكرار النص لجعله طويلاً جداً
+    function makeVeryLong(text) {
+      return text + ' ☪️ '.repeat(100) + ' (مزيد من المعلومات: ' + text + ') ' + ' 🔹 '.repeat(100);
+    }
+
+    // -------- الفصل 0 : أسئلة اختيار من متعدد (20 سؤالاً) بعد التعديل --------
+    const multiChoice = [
+      { q: "ما هو الركن الأول من أصول الدين؟", opts: ["العدل", "التوحيد", "النبوة"], correct: 1, exp: "التوحيد هو أساس العقيدة، ويليه العدل، ثم النبوة، ثم الإمامة، ثم المعاد." },
+      { q: "من هو الإمام الذي استُشهد في محرابه في شهر رمضان؟", opts: ["الإمام الحسن", "الإمام علي", "الإمام الحسين"], correct: 1, exp: "ضُرب أمير المؤمنين (ع) بالسيف في محراب مسجد الكوفة في 19 رمضان واستُشهد في 21 منه." },
+      { q: "ما هي الصلاة التي تُصلى في ليالي القدر (100 ركعة)؟", opts: ["صلاة التراويح", "نافلة ليالي القدر", "صلاة الغفيلة"], correct: 1, exp: "يُستحب في ليالي القدر (19، 21، 23) صلاة مائة ركعة، ولا تُشرع صلاة التراويح جماعةً." },
+      { q: "في أي ليلة يرجح أنها 'ليلة القدر' بنسبة أكبر؟", opts: ["ليلة 19", "ليلة 21", "ليلة 23"], correct: 2, exp: "ورد في الروايات أن ليلة 23 هي 'ليلة الجهني' وهي الأقرب لتكون ليلة القدر." },
+      { q: "ما هو حكم 'البقاء على الجنابة' عمداً حتى طلوع الفجر في رمضان؟", opts: ["صحيح", "مبطل للصوم", "مكروه"], correct: 1, exp: "تعمد البقاء على الجنابة حتى الفجر في شهر رمضان يبطل الصوم ويوجب القضاء والكفارة." },
+      { q: "من هو 'كريم أهل البيت' الذي وُلد في 15 رمضان؟", opts: ["الإمام الحسن المجتبى", "الإمام السجاد", "الإمام الجواد"], correct: 0, exp: "وُلد الإمام الحسن بن علي (ع) في منتصف شهر رمضان المبارك في السنة الثالثة للهجرة." },
+      { q: "كم عدد الأئمة المعصومين من آل البيت؟", opts: ["10 أئمة", "12 إماماً", "14 إماما"], correct: 1, exp: "هم الأئمة الاثنا عشر أولهم علي بن أبي طالب وآخرهم المهدي المنتظر (عج)." },
+      { q: "ما هو 'خمس' المال؟", opts: ["زكاة الفطر", "إخراج 20% من فائض المؤونة", "ضريبة اختيارية"], correct: 1, exp: "هو فريضة مالية (20%) تُدفع من أرباح المكاسب بعد استثناء مصاريف السنة، وتُقسم لسهم الإمام وسهم السادة." },
+      { q: "أي من هؤلاء يُعتبر من 'المطهرات' في الفقه؟", opts: ["الأرض", "الذهب", "الثياب"], correct: 0, exp: "الأرض تطهر باطن القدم وما يلامسها (بشروط)، ومن المطهرات أيضاً الماء، الشمس، والاستحالة." },
+      { q: "ما هو القول المعتمد في 'بسم الله الرحمن الرحيم' في الصلاة؟", opts: ["يُستحب تركها", "جزء من السورة ويجب الجهر بها"], correct: 1, exp: "البسملة آية من كل سورة (عدا التوبة) ويجب قراءتها، ويُستحب الجهر بها حتى في صلاة الظهر والعصر." },
+      { q: "متى يبدأ وقت صلاة المغرب؟", opts: ["عند غياب قرص الشمس", "عند ذهاب الحمرة المشرقية"], correct: 1, exp: "الاحتياط الوجوبي بانتظار زوال الحمرة التي تظهر في جهة الشرق بعد غروب الشمس بنحو 15 دقيقة." },
+      { q: "ما هي 'صلاة الآيات'؟", opts: ["صلاة العيد", "صلاة الكسوف والخسوف", "صلاة الليل"], correct: 1, exp: "تُجب عند وقوع الكسوف أو الخسوف أو الزلازل، وتتكون من ركعتين في كل ركعة 5 ركوعات." },
+      { q: "من هو النبي الذي جرت عليه قصة المائدة في القرآن؟", opts: ["موسى", "عيسى", "إبراهيم"], correct: 1, exp: "طلب الحواريون من عيسى (ع) نزول مائدة من السماء لتكون لهم عيداً ولتطمئن قلوبهم." },
+      { q: "ما هو حكم 'التكتف' (وضع اليد على الأخرى) في الصلاة؟", opts: ["سنة", "مبطل للصلاة", "مستحب"], correct: 1, exp: "يُسمى 'التكفير'، وهو مبطل للصلاة إلا في حال التقية." },
+      { q: "ما هي كفارة إفطار يوم من شهر رمضان عمداً؟", opts: ["إطعام 10 مساكين", "صيام شهرين متتابعين أو إطعام 60 مسكيناً"], correct: 1, exp: "هي كفارة مخيرة بين عتق رقبة، صيام شهرين متتابعين، أو إطعام 60 مسكيناً." },
+      { q: "من هي السيدة الملقبة بـ 'أم الأئمة'؟", opts: ["فاطمة الزهراء", "خديجة الكبرى", "أم البنين"], correct: 0, exp: "لأن الأئمة الأحد عشر من ذريتها، وهي بضعة النبي ﷺ." },
+      { q: "ما هي السورة التي تُقرأ 1000 مرة في شهر رمضان؟", opts: ["يس", "القدر", "الإخلاص"], correct: 1, exp: "ورد استحباب قراءة سورة القدر ألف مرة في ليالي شهر رمضان لعظيم فضلها." },
+      { q: "ما هو 'الارتماس' الذي يبطل الصوم؟", opts: ["الاستحمام", "تغطية الرأس كاملاً بالماء دفعة واحدة"], correct: 1, exp: "تغطية الرأس بالماء يبطل الصوم عند أغلب الفقهاء." },
+      { q: "أي مدينة تضم مرقد الإمام علي بن موسى الرضا (ع)؟", opts: ["النجف", "كربلاء", "مشهد"], correct: 2, exp: "استُشهد في طوس (مشهد الحالية) بإيران، وهو الإمام الثامن." },
+      { q: "ما هو دعاء 'الافتتاح'؟", opts: ["دعاء الصباح", "دعاء يُقرأ في ليالي رمضان", "دعاء كميل"], correct: 1, exp: "دعاء عظيم يُستحب قراءته في كل ليلة من ليالي شهر رمضان المبارك." }
+    ];
+    multiChoice.forEach((item, idx) => {
+      questions.push({
+        id: idx,
+        chapter: 0,
+        question: item.q,
+        options: item.opts,
+        correct: item.correct,
+        explanation: makeVeryLong(item.exp)
+      });
+    });
+
+    // -------- الفصل 1 : صح أم خطأ (15 سؤالاً) --------
+    const trueFalse = [
+      { q: "تجب صلاة الجمعة 'تعييناً' في زمن الغيبة عند جميع الفقهاء.", correct: 1, exp: "هي واجب 'تخييري' عند الأغلب، يختار المصلي بينها وبين صلاة الظهر." },
+      { q: "العدل من أصول الدين.", correct: 0, exp: "لأن العقل يحكم بقبح الظلم على الله تعالى، فهو عادل لا يظلم أحداً." },
+      { q: "يجوز السجود على السجاد أو القماش في الصلاة.", correct: 1, exp: "يجب السجود على الأرض أو ما أنبتته (غير المأكول والملبوس)، لذا يستخدم الكثير 'التربة'." },
+      { q: "الشهادة الثالثة (أشهد أن علياً ولي الله) جزء واجب من أذان الصلاة.", correct: 1, exp: "هي مستحبة ومكملة للشهادتين وليست جزءاً واجباً من فصول الأذان التوقيفية." },
+      { q: "دعاء الجوشن الكبير يُقرأ غالباً في ليالي القدر.", correct: 0, exp: "يحتوي على ألف اسم وصفة لله تعالى، ويُستحب قراءته في ليالي القدر المباركة." },
+      { q: "صوم يوم عاشوراء (10 محرم) مستحب.", correct: 1, exp: "يُكره صومه حزناً على الحسين (ع)، ويُستحب فيه 'الإمساك' عن الطعام والشراب دون نية الصوم الشرعي حتى العصر." },
+      { q: "من شروط مرجع التقليد أن يكون 'مجتهداً عادلاً حياً'.", correct: 0, exp: "يشترط تقليد الأعلم الحي، والعدالة شرط أساسي." },
+      { q: "غبار الطرقات الغليظ يبطل الصوم إذا وصل للحلق.", correct: 0, exp: "تعمد إيصال الغبار الغليظ (أو الدخان) إلى الحلق يعتبر من المفطرات." },
+      { q: "الوضوء يبدأ بغسل الوجه ثم اليدين من المرفق إلى الأصابع.", correct: 0, exp: "الترتيب هو: الوجه، اليد اليمنى، اليد اليسرى (من الأعلى للأسفل)، ثم مسح الرأس والرجلين." },
+      { q: "صلاة التراويح جماعةً بدعة.", correct: 0, exp: "لأن النوافل لا تُصلى جماعة إلا في صلاة الاستسقاء والعيدين (عند البعض)." },
+      { q: "يجب إخراج زكاة الفطر قبل صلاة العيد.", correct: 0, exp: "وقت وجوبها من ليلة العيد إلى قبيل صلاة العيد (أو الظهر لمن لم يصلِّ)." },
+      { q: "الزيارة الجامعة الكبيرة هي مروية عن الإمام علي الهادي (ع).", correct: 0, exp: "تُعتبر من أصح الزيارات متناً وسنداً." },
+      { q: "المسافر الذي ينوي الإقامة 5 أيام يجب عليه الصيام.", correct: 1, exp: "يجب أن ينوي إقامة 10 أيام كاملة لكي يصلي تماماً ويصوم." },
+      { q: "حديث الكساء يجمع الخمسة أصحاب الكساء (محمد، علي، فاطمة، حسن، حسين).", correct: 0, exp: "وهم الذين نزلت فيهم آية التطهير." },
+      { q: "القرآن الموجود اليوم هو نفسه الذي نزل على النبي دون زيادة أو نقصان.", correct: 0, exp: "هذا هو قول محققي العلماء قديماً وحديثاً." }
+    ];
+    trueFalse.forEach((item, idx) => {
+      questions.push({
+        id: 20 + idx,
+        chapter: 1,
+        question: item.q,
+        options: ["صح", "خطأ"],
+        correct: item.correct,
+        explanation: makeVeryLong(item.exp)
+      });
+    });
+
+    // -------- الفصل 2 : أسئلة الفراغات (15 سؤالاً) --------
+    const fillBlanks = [
+      { q: "يُسمى المكان الذي يُسجد عليه في الصلاة بـ ..........", opts: ["التربة", "السجادة", "المصلى"], correct: 0, exp: "لأن السجود لا يصح إلا على الأرض، والتربة الحسينية هي الأفضل تبركاً." },
+      { q: "الصلاة التي تُصلى ليلة الدفن للميت تسمى صلاة ..........", opts: ["الوحشة", "الغفيلة", "الآيات"], correct: 0, exp: "تُؤدى هدية للميت في أول ليلة له في القبر لتؤنس وحشته." },
+      { q: "حي على خير العمل هي جزء من ..........", opts: ["الأذان والإقامة", "دعاء الافتتاح", "القنوت"], correct: 0, exp: "حُذفت في عصور سابقة ولكن الكثير استمروا عليها لأنها جزء أصيل من الأذان النبوي." },
+      { q: "الإمام الذي لُقب بـ 'زين العابدين' هو الإمام ..........", opts: ["علي بن الحسين", "محمد الباقر", "جعفر الصادق"], correct: 0, exp: "لُقب بذلك لكثرة عبادته وسجوده، وهو صاحب 'الصحيفة السجادية'." },
+      { q: "يبلغ نصاب زكاة الفطر عن الشخص الواحد .......... كيلوجرامات (صاع) من الطعام.", opts: ["ثلاثة", "اثنان", "خمسة"], correct: 0, exp: "تُخرج من قوت أهل البلد (تمر، قمح، أرز) أو قيمتها النقدية." },
+      { q: "الكتاب الذي جمع خطب ورسائل وحكم الإمام علي (ع) يسمى ..........", opts: ["نهج البلاغة", "الغدير", "الكافي"], correct: 0, exp: "جمعه الشريف الرضي ويُعد من أرقى الكتب العربية بعد القرآن الكريم." },
+      { q: "الصلاة الواجبة التي ليس فيها ركوع ولا سجود هي صلاة ..........", opts: ["الميت", "العيد", "الآيات"], correct: 0, exp: "هي عبارة عن 5 تكبيرات مع أدعية خاصة." },
+      { q: "يُشترط في ماء الوضوء أن يكون .......... وطاهراً ومباحاً.", opts: ["مطلقاً", "مضافاً", "بارداً"], correct: 0, exp: "لا يصح الوضوء بالماء المضاف (كماء الورد) ولا الماء المغصوب." },
+      { q: "الغسل الذي يجب على المرأة بعد انتهاء دورتها الشهرية هو غسل ..........", opts: ["الحيض", "الجنابة", "الاستحاضة"], correct: 0, exp: "وهو شرط لصحة الصلاة والصيام والدخول في المسجد." },
+      { q: "الإمام المهدي (عج) هو ابن الإمام ..........", opts: ["الحسن العسكري", "علي الهادي", "محمد الجواد"], correct: 0, exp: "وهو الإمام الثاني عشر الذي يعتقد بغيبته وظهوره في آخر الزمان." },
+      { q: "'العدل' و'الإمامة' يسميان بـ ..........", opts: ["أصول المذهب", "فروع الدين", "المستحبات"], correct: 0, exp: "لأنهما يميزان هذا المذهب عن غيره." },
+      { q: "السورة التي يُستحب قراءتها في ليلة القدر هي سورة .......... و..........", opts: ["العنكبوت والروم", "الدخان والقدر", "يس والرحمن"], correct: 0, exp: "ورد في الرواية فضل عظيم لمن قرأهما في ليلة 23 من رمضان." },
+      { q: "قول 'أستغفر الله ربي وأتوب إليه' بين السجدتين يُسمى ..........", opts: ["ذكراً مستحباً", "واجباً", "مكروهاً"], correct: 0, exp: "يُستحب الفصل بين السجدتين بهذا الذكر طلباً للمغفرة." },
+      { q: "معركة كربلاء وقعت في سنة .......... للهجرة.", opts: ["61", "63", "65"], correct: 0, exp: "وهي الحادثة الأليمة التي استُشهد فيها سبط النبي الإمام الحسين (ع)." },
+      { q: "الصيام الواجب عدا رمضان هو صيام القضاء و.......... و..........", opts: ["الكفارة والنذر", "التطوع والاعتكاف", "الشفع والوتر"], correct: 0, exp: "هي أنواع الصيام التي تصبح فرضاً بسبب عارض أو التزام شرعي." }
+    ];
+    fillBlanks.forEach((item, idx) => {
+      questions.push({
+        id: 35 + idx,
+        chapter: 2,
+        question: item.q,
+        options: item.opts,
+        correct: item.correct,
+        explanation: makeVeryLong(item.exp)
+      });
+    });
+
+    // -------- الفصل 3 : أسئلة تفسيرية (16 سؤالاً) --------
+    const interpretative = [
+      { q: "لماذا يمسح على الأرجل في الوضوء ولا تغسل؟", opts: ["اتباعاً لظاهر الآية", "لأن الغسل غير واجب", "تقليداً"], correct: 0, exp: "امتثالاً لظاهر الآية القرآنية 'وامسحوا برؤوسكم وأرجلكم'. الآية عطفت الأرجل على الرأس (الممسوح) وليس على الوجه (المغسول)، وهذا ما تواتر عن أئمة أهل البيت (ع)." },
+      { q: "ما معنى 'الإمامة'؟", opts: ["رئاسة عامة في الدين والدنيا خلافة عن النبي", "مجرد منصب حكومي", "الخلافة بالشورى"], correct: 0, exp: "هي رئاسة عامة في أمور الدين والدنيا خلافة عن النبي. يعتقد أن الإمام مُنصب من الله (بالنص) وليس بالشورى، ويجب أن يكون معصوماً." },
+      { q: "ما هي فلسفة 'التربة الحسينية' في السجود؟", opts: ["وسيلة للسجود على الأرض وليست سجوداً لقطعة الطين", "تبرك فقط", "لا فرق بينها وبين غيرها"], correct: 0, exp: "هي وسيلة للسجود 'على الأرض' وليست سجوداً لقطعة الطين. تفضل تربة كربلاء لما فيها من قدسية وذكرى لتضحية الحسين (ع)، ولضمان طهارة المسجد وصحة السجود على الأرض." },
+      { q: "ما هو 'الخمس' ومن يستحقه؟", opts: ["ضريبة مالية 20% تقسم لسهم الإمام وسهم السادة", "زكاة الأموال الظاهرة", "صدقة تطوعية"], correct: 0, exp: "ضريبة مالية 20%، تُقسم لقسمين: سهم الإمام وسهم السادة. سهم الإمام يُصرف في تقوية الدين بإشراف المرجع، وسهم السادة يُعطى للفقراء من ذرية الرسول ﷺ." },
+      { q: "لماذا تُحيى ليالي القدر 19 و21 و23 تحديداً؟", opts: ["لأن ليلة القدر مخفية بين هذه الليالي الثلاث", "لأنها ليالي استشهاد الإمام علي", "لأنها نزل فيها القرآن"], correct: 0, exp: "لأن ليلة القدر مخفية بين هذه الليالي الثلاث. ليلة 19 ليلة التقدير، 21 ليلة الإبرام، 23 ليلة الإمضاء." },
+      { q: "ما هو حكم 'صوم المسافر'؟", opts: ["يحرم الصيام على المسافر ويجب عليه الإفطار", "يصح الصوم", "مخير"], correct: 0, exp: "يحرم الصيام على المسافر (بشروط السفر) ويجب عليه الإفطار. لقوله تعالى 'فعدة من أيام أخر'." },
+      { q: "ما هي 'العصمة'؟", opts: ["قوة قدسية تمنع من ارتكاب الذنب أو الخطأ", "كثرة العبادة", "العلم بالغيب"], correct: 0, exp: "هي قوة قدسية تمنع صاحبها من ارتكاب الذنب أو الخطأ. يعتقد بعصمة الأنبياء والأئمة والسيدة الزهراء." },
+      { q: "ما المقصود بـ 'التقية'؟", opts: ["إخفاء المعتقد في حال الخوف على النفس أو العرض", "الكذب", "النفاق"], correct: 0, exp: "إخفاء المعتقد في حال الخوف على النفس أو العرض. هي إجراء دفاعي شرعي." },
+      { q: "لماذا يجهر بالبسملة في كل الصلوات؟", opts: ["لأنها آية من القرآن واتباعاً للسنة", "لعدم وجود دليل على إخفائها", "لأنها سنة"], correct: 0, exp: "لأنها آية من القرآن الكريم، واتباعاً لسنة النبي وأهل بيته." },
+      { q: "ما هو 'دعاء الجوشن الصغير'؟", opts: ["دعاء للوقاية من كيد الأعداء والظلم", "دعاء الافتتاح", "دعاء كميل"], correct: 0, exp: "دعاء للوقاية من كيد الأعداء والظلم. أملاه الإمام الكاظم (ع)." },
+      { q: "ما معنى 'الغيبة الكبرى' للإمام المهدي (عج)؟", opts: ["الفترة التي انقطع فيها الاتصال المباشر بالوكلاء الخاصين", "اختفاء الإمام", "عدم ظهوره"], correct: 0, exp: "هي الفترة التي انقطع فيها الاتصال المباشر بالوكلاء الخاصين. بدأت عام 329 هـ." },
+      { q: "ما هي 'صلاة الليل' وكم عدد ركعاتها؟", opts: ["صلاة مستحبة بعد منتصف الليل 11 ركعة", "8 ركعات", "13 ركعة"], correct: 0, exp: "صلاة مستحبة تُصلى بعد منتصف الليل، وعددها 11 ركعة." },
+      { q: "ما الفرق بين 'الزكاة' و'الخمس'؟", opts: ["الزكاة تجب في 9 أشياء، والخمس في أرباح المكاسب", "الزكاة مرة في السنة والخمس مرتان", "كلاهما واحد"], correct: 0, exp: "الزكاة تجب في 9 أشياء، والخمس في أرباح المكاسب." },
+      { q: "ما هي 'أعمال ليلة القدر' العامة؟", opts: ["الغسل، الصلاة، القراءة، ووضع المصحف على الرأس", "إحياء الليل فقط", "الاعتكاف"], correct: 0, exp: "الغسل، الصلاة، قراءة القرآن، ووضع المصحف على الرأس." },
+      { q: "ما هو حكم 'النوافل' في نهار رمضان؟", opts: ["مستحبة وتزيد في الأجر", "مكروهة", "لا تجوز"], correct: 0, exp: "مستحبة وتزيد في الأجر." },
+      { q: "ما معنى 'الولاية'؟", opts: ["الاعتقاد بأن حق الطاعة والقيادة لله ولرسوله وللأئمة", "محبة أهل البيت فقط", "اتباع السنة"], correct: 0, exp: "هي الاعتقاد بأن حق الطاعة والقيادة لله ولرسوله وللأئمة." }
+    ];
+    interpretative.forEach((item, idx) => {
+      questions.push({
+        id: 50 + idx,
+        chapter: 3,
+        question: item.q,
+        options: item.opts,
+        correct: item.correct,
+        explanation: makeVeryLong(item.exp)
+      });
+    });
+
+    // ------------------- متغيرات التطبيق -------------------
+    let currentChapter = 0;
+    let currentChapterQuestions = [];
+    let currentQIndex = 0;
+    let answered = new Array(questions.length).fill(false);
+    let correctCount = 0;
+    let totalInChapter = 0;
+
+    const chapterBtns = document.querySelectorAll('.chapter-btn');
+    const qCounter = document.getElementById('qCounter');
+    const qText = document.getElementById('qText');
+    const optionsDiv = document.getElementById('optionsContainer');
+    const feedbackMsg = document.getElementById('feedbackMsg');
+    const nextBtn = document.getElementById('nextBtn');
+    const resultPanel = document.getElementById('resultPanel');
+
+    function loadChapter(chapter) {
+      currentChapter = chapter;
+      currentChapterQuestions = questions.filter(q => q.chapter === chapter);
+      totalInChapter = currentChapterQuestions.length;
+      currentQIndex = 0;
+      currentChapterQuestions.forEach(q => { answered[q.id] = false; });
+      correctCount = 0;
+      resultPanel.style.display = 'none';
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      if (currentChapterQuestions.length === 0) return;
+      const q = currentChapterQuestions[currentQIndex];
+      qCounter.innerText = `السؤال ${currentQIndex+1} / ${totalInChapter}`;
+      qText.innerText = q.question;
+      let optsHtml = '';
+      q.options.forEach((opt, idx) => {
+        optsHtml += `<div class="option-item" data-opt-index="${idx}"><i class="fas fa-circle"></i> ${opt}</div>`;
+      });
+      optionsDiv.innerHTML = optsHtml;
+      feedbackMsg.style.display = 'none';
+      nextBtn.disabled = true;
+
+      document.querySelectorAll('.option-item').forEach(optDiv => {
+        optDiv.addEventListener('click', (e) => {
+          const chosen = parseInt(optDiv.dataset.optIndex);
+          handleAnswer(chosen);
+        });
+      });
+    }
+
+    function handleAnswer(chosenIdx) {
+      const q = currentChapterQuestions[currentQIndex];
+      if (answered[q.id]) return;
+      answered[q.id] = true;
+      const isCorrect = (chosenIdx === q.correct);
+      if (isCorrect) {
+        correctCount++;
+        feedbackMsg.className = 'feedback-message correct-feedback';
+        feedbackMsg.innerHTML = `✅ صحيح! أحسنت. ${q.explanation.substring(0,400)}...`;
+        playSound('correct');
+      } else {
+        feedbackMsg.className = 'feedback-message wrong-feedback';
+        const correctAnswer = q.options[q.correct];
+        feedbackMsg.innerHTML = `❌ خطأ. الإجابة الصحيحة هي: "${correctAnswer}"<br><br>${q.explanation.substring(0,400)}...`;
+        playSound('wrong');
+      }
+      feedbackMsg.style.display = 'block';
+      nextBtn.disabled = false;
+      document.querySelectorAll('.option-item').forEach(opt => opt.classList.add('disabled'));
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (currentQIndex + 1 < currentChapterQuestions.length) {
+        currentQIndex++;
+        renderQuestion();
+      } else {
+        showChapterResult();
+      }
+    });
+
+    function showChapterResult() {
+      resultPanel.style.display = 'block';
+      resultPanel.innerHTML = `🎉🎊 أتممت الجابتر ${currentChapter+1} بنجاح! نتيجتك: ${correctCount} / ${totalInChapter} 🎊🎉<br>صوت جميل وطريف!`;
+      playSound('finish');
+    }
+
+    chapterBtns.forEach((btn, idx) => {
+      btn.addEventListener('click', () => {
+        chapterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        loadChapter(idx);
+      });
+    });
+
+    // ------------------- المودال والمعلومات -------------------
+    const modalOverlay = document.getElementById('infoModal');
+    const modalBody = document.getElementById('modalBody');
+    const closeModal = document.getElementById('closeModal');
+    const prevModal = document.getElementById('prevModalPage');
+    const nextModal = document.getElementById('nextModalPage');
+    let currentInfoPage = 0;
+
+    const infoPages = [
+      { title: "🔹 فوائد الصوم للجسم 🔹", content: "1. تحسين الهضم وتخليص الجسم من السموم. 2. تجديد الخلايا. 3. تقوية جهاز المناعة. 4. راحة الجهاز الهضمي. 5. خفض نسبة السكر. 6. تحسين صحة القلب. قال النبي ﷺ: (صوموا تصحوا). وقد أثبت العلم الحديث فوائد الصوم المتعددة." },
+      { title: "🔹 لماذا نصوم؟ 🔹", content: "نصوم امتثالاً لأمر الله {يَا أَيُّهَا الَّذِينَ آمَنُوا كُتِبَ عَلَيْكُمُ الصِّيَامُ}. ولتحقيق التقوى، ولنشكر نعمه، ولنشعر بالفقراء، ولنطهر أنفسنا." },
+      { title: "🔹 نظافة البدن والقلب 🔹", content: "رمضان شهر النقاء: نظافة الجسد بالوضوء والغسل، ونظافة القلب من الغل والحقد. قال الأستاذ محمد خضر: 'نضيف اليد نضيف القلب'." },
+      { title: "🔹 كلمة الأستاذ محمد خضر 🔹", content: "كما قال لنا في حصة التربية الإسلامية: 'نضيف اليد نضيف القلب'. وأوصانا بالطهارة الظاهرة والباطنة." },
+      { title: "🔹 آيات وأحاديث كثيرة 🔹", content: "آيات: (شهر رمضان الذي أنزل فيه القرآن). (إنما يريد الله ليذهب عنكم الرجس أهل البيت). أحاديث: (الصلوات الخمس والجمعة إلى الجمعة ورمضان إلى رمضان مكفرات)." }
+    ];
+
+    document.querySelectorAll('.info-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        currentInfoPage = parseInt(card.dataset.info);
+        showInfoModal(currentInfoPage);
+      });
+    });
+
+    function showInfoModal(idx) {
+      modalBody.innerHTML = `<h2 style="color:#ffdb8e;">${infoPages[idx].title}</h2><p style="font-size:2rem;">${infoPages[idx].content}</p><p>${' ☾ '.repeat(100)}</p>`;
+      modalOverlay.style.display = 'flex';
+    }
+
+    closeModal.addEventListener('click', () => modalOverlay.style.display = 'none');
+    prevModal.addEventListener('click', () => {
+      currentInfoPage = (currentInfoPage - 1 + infoPages.length) % infoPages.length;
+      showInfoModal(currentInfoPage);
+    });
+    nextModal.addEventListener('click', () => {
+      currentInfoPage = (currentInfoPage + 1) % infoPages.length;
+      showInfoModal(currentInfoPage);
+    });
+
+    // نقر على سطور النضافه
+    const nadafaLines = document.querySelectorAll('.nadafa-line');
+    nadafaLines.forEach(line => {
+      line.addEventListener('click', (e) => {
+        const idx = line.dataset.nadafa;
+        let content = '';
+        if (idx === '0') content = 'قال رسول الله ﷺ: "إن الله طيب يحب الطيب نظيف يحب النظافة". ومعناه أن الله يحب نظافة البدن والثوب والمكان.';
+        else if (idx === '1') content = 'الأستاذ محمد خضر: "نضيف اليد نضيف القلب" (هكذا قال بالضبط). نضيف اليد: بالوضوء والعمل الصالح، ونضيف القلب: بذكر الله والتسامح.';
+        else if (idx === '2') content = 'الإمام علي (ع): "تطهرُوا فإن الإسلام نظيف". فالطهارة الظاهرة عنوان طهارة الباطن.';
+        else if (idx === '3') content = 'سورة البقرة آية 183: (يَا أَيُّهَا الَّذِينَ آمَنُوا كُتِبَ عَلَيْكُمُ الصِّيَامُ... لَعَلَّكُمْ تَتَّقُونَ).';
+        else if (idx === '4') content = 'الإمام الصادق (ع): "من أخلاق الأنبياء التطيب". وكان النبي ﷺ لا يرد الطيب.';
+
+        modalBody.innerHTML = `<h2 style="color:#f7d147;">نفحة رمضانية</h2><p style="font-size:2.2rem;">${content}</p><p>${' ☾ '.repeat(100)}</p>`;
+        modalOverlay.style.display = 'flex';
+      });
+    });
+
+    // تفعيل الصوت عند أول تفاعل
+    document.body.addEventListener('click', function unlockAudio() {
+      initAudio();
+      document.body.removeEventListener('click', unlockAudio);
+    }, { once: true });
+
+    // بدأ التشغيل بالفصل الأول
+    loadChapter(0);
+  })();
+</script>
+</body>
+</html>
